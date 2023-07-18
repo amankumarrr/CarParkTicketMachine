@@ -1,0 +1,53 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h2>Welcome to Emprevo Car Parking Ticket Machine </h2>
+</div>
+
+<div class="container mt-5">
+ <div class="d-flex justify-content-center align-content-center">
+     <div class="card col-6">
+         <div class="card-header text-center">
+            <h1>Hello there!</h1>
+            <p>Please Enter your Entry and Exist Time</p>
+         </div>
+         <div class="card-body">
+          <form method="post" class="mt-4">
+            <div class="mb-3">
+              <label for="entryTime" class="form-label">Entry Time:</label>
+              <input type="datetime-local" id="entryTime" name="EntryTime"  required class="form-control" >
+            </div>
+            <div class="mb-3">
+              <label for="exitTime" class="form-label">Exit Time:</label>
+              <input type="datetime-local" id="exitTime" name="ExitTime" required class="form-control" >
+            </div>
+            <div class="text-center">
+            <button type="submit" class="btn btn-primary float-right" asp-page-handler="Submit">SUBMIT</button>
+            </div>
+          </form>
+         </div>
+            @{
+                if (!string.IsNullOrWhiteSpace(Model.Error))
+                {
+                    <div class="alert alert-danger mx-3" role="alert">
+                      @Model.Error
+                    </div>
+                }else if(!string.IsNullOrWhiteSpace(Model.ticketPrice))
+                {
+                    <div class="alert alert-warning mx-3 text-center" role="alert" style="border:dashed">
+                        @Model.ticketPrice
+                    </div>
+                }
+            }
+    </div>
+  </div>
+</div>
+
+
+        
+
+
