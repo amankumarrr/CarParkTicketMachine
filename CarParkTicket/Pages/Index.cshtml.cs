@@ -9,6 +9,8 @@ namespace CarParkTicket.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private RateCalculatorFactory rateCalculatorFactory;
+
+        public Parking cpK;
         public string ticketPrice { get; set; }
         public string Error { get; set; }
 
@@ -36,6 +38,7 @@ namespace CarParkTicket.Pages
                     IRateCalculator rateCalculator = rateCalculatorFactory.CreateRateCalculator(parking.EntryTime, parking.ExitTime);
                     string rate = rateCalculator.CalculateRate(parking.EntryTime, parking.ExitTime);
                     this.ticketPrice = rate;
+                    cpK = parking;
                 }
                 else
                 {
