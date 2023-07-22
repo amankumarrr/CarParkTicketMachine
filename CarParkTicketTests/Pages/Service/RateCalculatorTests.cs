@@ -18,7 +18,7 @@ namespace CarParkTicket.Pages.Service.Tests
         public void CalculateRate_EarlyBirdRate()
         {
             DateTime entryDateTime = new DateTime(2023, 7, 13, 8, 0, 0); // Thursday, 08:00 AM 
-            DateTime exitDateTime = new DateTime(2023, 7, 13, 16, 0, 0); // Thursday, 14:00 AM 
+            DateTime exitDateTime = new DateTime(2023, 7, 13, 16, 0, 0); // Thursday, 04:00 PM 
 
             IRateCalculator rateCalculator = rateCalculatorFactory.CreateRateCalculator(entryDateTime, exitDateTime);
 
@@ -43,7 +43,7 @@ namespace CarParkTicket.Pages.Service.Tests
         [Test]
         public void CalculateRate_WeekendRate()
         {
-            DateTime entryDateTime = new DateTime(2023, 7, 14, 23, 0, 0); // Friday, 11:00 PM 
+            DateTime entryDateTime = new DateTime(2023, 7, 15, 0, 0, 0); // Friday, 12:00 AM
             DateTime exitDateTime = new DateTime(2023, 7, 16, 20, 0, 0);  // Sunday, 08:00 PM 
 
             IRateCalculator rateCalculator = rateCalculatorFactory.CreateRateCalculator(entryDateTime, exitDateTime);
@@ -53,8 +53,9 @@ namespace CarParkTicket.Pages.Service.Tests
             Assert.AreEqual("Weekend Rate - $10.00", rate);
         }
 
+
         [Test]
-        public void CalculateRate_StandardRate_For_1_Hours()
+        public void CalculateRate_For_1HourWeekDay()
         {
             DateTime entryDateTime = new DateTime(2023, 7, 17, 10, 0, 0); // Monday, 10:00 AM 
             DateTime exitDateTime = new DateTime(2023, 7, 17, 11, 0, 0);  // Monday, 11:00 AM
@@ -67,7 +68,7 @@ namespace CarParkTicket.Pages.Service.Tests
         }
 
         [Test]
-        public void CalculateRate_StandardRate_For_2_Hours()
+        public void CalculateRate_For_2HoursWeekDay()
         {
             DateTime entryDateTime = new DateTime(2023, 7, 17, 10, 0, 0); // Monday, 10:00 AM
             DateTime exitDateTime = new DateTime(2023, 7, 17, 12, 0, 0);  // Monday, 12:00 AM
@@ -79,7 +80,7 @@ namespace CarParkTicket.Pages.Service.Tests
             Assert.AreEqual("Standard Rate - $10.00", rate);
         }
         [Test]
-        public void CalculateRate_StandardRate_For_3_Hours()
+        public void CalculateRate_For_3HoursWeekDay()
         {
             DateTime entryDateTime = new DateTime(2023, 7, 17, 10, 0, 0); // Monday, 10:00 AM
             DateTime exitDateTime = new DateTime(2023, 7, 17, 13, 0, 0);  // Monday, 01:00 PM
@@ -92,7 +93,7 @@ namespace CarParkTicket.Pages.Service.Tests
         }
 
         [Test]
-        public void CalculateRate_StandardRateForWeekendOverTime()
+        public void CalculateRate_For_WeekendOverTime()
         {
             DateTime entryDateTime = new DateTime(2023, 7, 15, 10, 0, 0); // Saturday, 10:00 AM
             DateTime exitDateTime = new DateTime(2023, 7, 18, 13, 30, 0); // Tuesday,  01:30 AM
@@ -105,7 +106,7 @@ namespace CarParkTicket.Pages.Service.Tests
         }
 
         [Test]
-        public void CalculateRate_StandardRate_For_1_WholeDay_WeekDay()
+        public void CalculateRate_For_24HoursWeekDays()
         {
             DateTime entryDateTime = new DateTime(2023, 7, 13, 6, 0, 0); // Thursday, 06:00 AM
             DateTime exitDateTime = new DateTime(2023, 7, 14, 6, 0, 0); //  Friday,   06:00 AM
@@ -118,7 +119,7 @@ namespace CarParkTicket.Pages.Service.Tests
         }
 
         [Test]
-        public void CalculateRate_StandardRate_For_25Hours()
+        public void CalculateRate_For_25HoursWeekDays()
         {
             DateTime entryDateTime = new DateTime(2023, 7, 13, 6, 0, 0); // Thursday, 06:00 AM
             DateTime exitDateTime = new DateTime(2023, 7, 14, 7, 0, 0); //  Friday,   07:00 AM

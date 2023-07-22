@@ -2,7 +2,7 @@
 {
     public class NightRateCalculator: IRateCalculator
     {
-        private static int parkingDurationLimit = 12; // 6 PM to 6 AM 
+        private static int parkingDurationDayLimit = 1; // 6 PM to 6 AM 
 
         public string CalculateRate(DateTime entryDateTime, DateTime exitDateTime)
         {
@@ -17,15 +17,15 @@
                 && entryDateTime.TimeOfDay <= new TimeSpan(23, 59, 59)// 12am <-
                 && exitDateTime.TimeOfDay >= TimeSpan.Zero // 12pm ->
                 && exitDateTime.TimeOfDay <= new TimeSpan(6, 0, 0) // 6am <-
-                && IsItWithinParkingDurationLimit(entryDateTime, exitDateTime); // within 12 hours 
+                && IsItUnderTheDaysLimit(entryDateTime, exitDateTime); // within 12 hours 
         }
 
 
-        private static bool IsItWithinParkingDurationLimit(DateTime entryDateTime, DateTime exitDateTime)
+        private static bool IsItUnderTheDaysLimit(DateTime entryDateTime, DateTime exitDateTime)
         {
             TimeSpan parkingDuration = exitDateTime - entryDateTime;
-            int totalHours = (int)Math.Ceiling(parkingDuration.TotalHours);
-            return (totalHours <= parkingDurationLimit) ? true: false;
+            int totalDays = (int)Math.Ceiling(parkingDuration.TotalDays);
+            return (totalDays == parkingDurationDayLimit) ? true: false;
         }
 
         private static bool IsWeekDay(DayOfWeek day)
