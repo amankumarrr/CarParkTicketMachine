@@ -4,21 +4,27 @@
     {
         public IRateCalculator CreateRateCalculator(DateTime entryDateTime, DateTime exitDateTime)
         {
-            if (EarlyBirdRateCalculator.IsEarlyBirdRate(entryDateTime, exitDateTime))
+            if (entryDateTime < exitDateTime)
             {
-                return new EarlyBirdRateCalculator();
-            }
-            else if (NightRateCalculator.IsNightRate(entryDateTime, exitDateTime))
+                if (EarlyBirdRateCalculator.IsEarlyBirdRate(entryDateTime, exitDateTime))
+                {
+                    return new EarlyBirdRateCalculator();
+                }
+                else if (NightRateCalculator.IsNightRate(entryDateTime, exitDateTime))
+                {
+                    return new NightRateCalculator();
+                }
+                else if (WeekendRateCalculator.IsWeekendRate(entryDateTime, exitDateTime))
+                {
+                    return new WeekendRateCalculator();
+                }
+                else
+                {
+                    return new StandardRateCalculator();
+                }
+            }else
             {
-                return new NightRateCalculator();
-            }
-            else if (WeekendRateCalculator.IsWeekendRate(entryDateTime, exitDateTime))
-            {
-                return new WeekendRateCalculator();
-            }
-            else
-            {
-                return new StandardRateCalculator();
+                throw new ArgumentException("Entry time should be earlier than exit time.");
             }
         }
     

@@ -130,5 +130,17 @@ namespace CarParkTicket.Pages.Service.Tests
 
             Assert.AreEqual("Standard Rate - $20.00 per day, Total Price: $40", rate);
         }
+
+        [Test]
+        public void CalculateRate_ShouldThrowArgumentException_WhenEntryTimeAfterExitTime()
+        {
+            // Arrange
+            DateTime entryDateTime = new DateTime(2023, 7, 21, 12, 0, 0); // Entry time after exit time
+            DateTime exitDateTime = new DateTime(2023, 7, 21, 10, 0, 0); // Exit time before entry time
+
+            RateCalculatorFactory rateCalculatorFactory = new RateCalculatorFactory();
+            // Act & Assert 
+            Assert.Throws<ArgumentException>(() => rateCalculatorFactory.CreateRateCalculator(entryDateTime, exitDateTime));
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace CarParkTicket.Pages
         {
             _logger = logger;
             rateCalculatorFactory = new RateCalculatorFactory();
-            ticketPrice = "";
+            ticketPrice = String.Empty;
         }
 
         public void OnGet()
@@ -28,22 +28,13 @@ namespace CarParkTicket.Pages
 
         public void OnPostSubmit(Parking parking)
         {
-
             try
             {
-
-                if(parking.EntryTime < parking.ExitTime)
-                {
-                    this.Error = string.Empty;
-                    IRateCalculator rateCalculator = rateCalculatorFactory.CreateRateCalculator(parking.EntryTime, parking.ExitTime);
-                    string rate = rateCalculator.CalculateRate(parking.EntryTime, parking.ExitTime);
-                    this.ticketPrice = rate;
-                    cpK = parking;
-                }
-                else
-                {
-                    throw new Exception("Entry time should be earlier than exit time.");
-                }
+                this.Error = string.Empty;
+                IRateCalculator rateCalculator = rateCalculatorFactory.CreateRateCalculator(parking.EntryTime, parking.ExitTime);
+                string rate = rateCalculator.CalculateRate(parking.EntryTime, parking.ExitTime);
+                this.ticketPrice = rate;
+                cpK = parking;
             }
             catch(Exception ex)
             {
